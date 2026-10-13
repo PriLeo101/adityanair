@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aditya Nair — Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f3ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#1e1b4b',
+                        },
+                        slateBg: '#FAF9F6',
+                        charcoal: '#0F172A',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FAF9F6;
+            color: #0F172A;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+        }
+        .backdrop-blur-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-slateBg text-slate-900 antialiased selection:bg-indigo-500 selection:text-white">
+
+    <!-- Sticky Navigation Bar -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 border-b border-transparent">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#hero" class="group flex items-center space-x-3 text-lg font-bold tracking-tight text-slate-900 hover:text-indigo-600 transition-colors">
+                <span class="w-9 h-9 rounded-lg bg-slate-900 text-white flex items-center justify-center font-mono text-base group-hover:bg-indigo-600 transition-colors">AN</span>
+                <span class="tracking-tight text-slate-800 group-hover:text-indigo-600">Aditya Nair</span>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
+                <a href="#about" class="nav-link hover:text-slate-900 transition-colors py-1 relative">About</a>
+                <a href="#projects" class="nav-link hover:text-slate-900 transition-colors py-1 relative">Projects</a>
+                <a href="#experience" class="nav-link hover:text-slate-900 transition-colors py-1 relative">Experience</a>
+                <a href="#contact" class="nav-link hover:text-slate-900 transition-colors py-1 relative">Contact</a>
+            </nav>
+
+            <!-- Quick Action Button -->
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="https://github.com/PriLeo101" target="_blank" rel="noopener noreferrer" class="p-2 text-slate-600 hover:text-slate-900 transition-colors" title="GitHub Profile">
+                    <i data-lucide="github" class="w-5 h-5"></i>
+                </a>
+                <a href="#contact" class="text-xs font-semibold uppercase tracking-wider px-4 py-2.5 rounded-lg bg-slate-900 text-white hover:bg-indigo-600 transition-colors duration-200">
+                    Get in Touch
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="menu-btn" class="md:hidden p-2 text-slate-700 hover:text-slate-900 focus:outline-none" aria-label="Toggle Menu">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 bg-white/95 backdrop-blur-md px-6 py-4 space-y-3">
+            <a href="#about" class="mobile-nav-link block text-sm font-medium text-slate-700 hover:text-indigo-600">About</a>
+            <a href="#projects" class="mobile-nav-link block text-sm font-medium text-slate-700 hover:text-indigo-600">Projects</a>
+            <a href="#experience" class="mobile-nav-link block text-sm font-medium text-slate-700 hover:text-indigo-600">Experience</a>
+            <a href="#contact" class="mobile-nav-link block text-sm font-medium text-slate-700 hover:text-indigo-600">Contact</a>
+            <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
+                <a href="https://github.com/PriLeo101" target="_blank" class="text-xs font-medium text-slate-600 flex items-center gap-1.5">
+                    <i data-lucide="github" class="w-4 h-4"></i> GitHub
+                </a>
+                <a href="#contact" class="text-xs font-semibold uppercase tracking-wider px-3 py-2 rounded bg-slate-900 text-white">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-grid-pattern">
+        <canvas id="hero-canvas" class="absolute inset-0 w-full h-full pointer-events-none opacity-40"></canvas>
+
+        <div class="max-w-4xl mx-auto px-6 py-20 text-center relative z-10">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/80 shadow-xs text-xs font-medium text-slate-600 mb-8">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                Graduate Student @ MIT &bull; Open for Collaboration
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-slate-900 mb-6">
+                Aditya Nair
+            </h1>
+
+            <p class="text-lg sm:text-xl md:text-2xl font-light text-slate-600 max-w-2xl mx-auto leading-relaxed mb-10">
+                MIT student passionate about <span class="text-slate-900 font-medium underline decoration-indigo-300 decoration-2 underline-offset-4">technology</span>, <span class="text-slate-900 font-medium underline decoration-indigo-300 decoration-2 underline-offset-4">innovation</span>, and building ideas that make a difference.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#projects" class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-slate-900 text-white text-sm font-semibold hover:bg-indigo-600 transition-colors shadow-md shadow-slate-900/5 flex items-center justify-center gap-2 group">
+                    <span>View Selected Work</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+                <a href="#contact" class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-white border border-slate-200 text-slate-800 text-sm font-semibold hover:bg-slate-50 transition-colors shadow-xs flex items-center justify-center gap-2">
+                    <span>Get in Touch</span>
+                    <i data-lucide="mail" class="w-4 h-4 text-slate-500"></i>
+                </a>
+            </div>
+
+            <div class="mt-20 flex flex-col items-center gap-2 text-xs text-slate-400">
+                <span class="font-mono uppercase tracking-wider">Scroll to Explore</span>
+                <i data-lucide="chevron-down" class="w-4 h-4 animate-bounce text-slate-400"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 border-t border-slate-200/60 bg-white">
+        <div class="max-w-5xl mx-auto px-6">
+            <!-- Section Title (No 01 prefix) -->
+            <div class="flex items-center space-x-4 mb-12">
+                <h2 class="text-xs font-mono font-bold tracking-widest text-indigo-600 uppercase">Background & Overview</h2>
+                <div class="h-px bg-slate-200 flex-1"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                <div class="lg:col-span-8 space-y-6 text-slate-600 text-base sm:text-lg leading-relaxed">
+                    <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+                        Bridging classroom theory with real-world application.
+                    </h3>
+                    
+                    <p>
+                        Hi! I’m currently pursuing my Master’s at <strong>MIT</strong> after completing my undergraduate studies at <strong>VIT Vellore</strong>. My academic and practical focus centers on systems engineering, software development, and applied machine learning, with a strong foundation in cybersecurity.
+                    </p>
+
+                    <p>
+                        For me, technology is most rewarding when it bridges classroom theory with real-world application. Through a mix of industry internships, hackathons, and personal projects, I enjoy turning complex challenges into clean, scalable solutions. I value collaborative environments where different perspectives come together to solve practical problems.
+                    </p>
+
+                    <p class="text-base text-slate-500 pt-2 border-t border-slate-100">
+                        Outside of academics, I enjoy playing badminton, diving into good literature, and exploring new places. I find that stepping away from the screen often brings fresh clarity to technical challenges.
+                    </p>
+                </div>
+
+                <div class="lg:col-span-4 space-y-4">
+                    <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-slate-300 transition-colors">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
+                                <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs font-mono uppercase tracking-wider text-slate-400">Education</span>
+                                <h4 class="text-sm font-semibold text-slate-900">MIT (Master's)</h4>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500">Pursuing advanced studies in systems & machine learning.</p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-slate-300 transition-colors">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
+                                <i data-lucide="award" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs font-mono uppercase tracking-wider text-slate-400">Alumni</span>
+                                <h4 class="text-sm font-semibold text-slate-900">VIT Vellore (B.Tech)</h4>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500">Completed undergraduate degree in computer engineering.</p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-slate-300 transition-colors">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
+                                <i data-lucide="shield-check" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs font-mono uppercase tracking-wider text-slate-400">Focus Areas</span>
+                                <h4 class="text-sm font-semibold text-slate-900">Systems, ML & Security</h4>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-1.5 mt-2">
+                            <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-white border border-slate-200 text-slate-700">Systems</span>
+                            <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-white border border-slate-200 text-slate-700">Cybersecurity</span>
+                            <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-white border border-slate-200 text-slate-700">Machine Learning</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Selected Projects Section -->
+    <section id="projects" class="py-24 border-t border-slate-200/60 bg-slateBg">
+        <div class="max-w-6xl mx-auto px-6">
+            <!-- Section Header Title (No 02 prefix) -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+                <div>
+                    <div class="flex items-center space-x-3 mb-2">
+                        <span class="text-xs font-mono font-bold tracking-widest text-indigo-600 uppercase">Portfolio</span>
+                    </div>
+                    <h2 class="text-3xl font-bold text-slate-900 tracking-tight">Selected Projects</h2>
+                </div>
+
+                <!-- Category Filter -->
+                <div class="flex flex-wrap gap-2 text-xs font-mono">
+                    <button class="project-filter-btn px-3.5 py-2 rounded-lg bg-slate-900 text-white font-medium transition-colors" data-filter="all">All</button>
+                    <button class="project-filter-btn px-3.5 py-2 rounded-lg bg-white border border-slate-200 text-slate-600 hover:text-slate-900 transition-colors" data-filter="security">Security</button>
+                    <button class="project-filter-btn px-3.5 py-2 rounded-lg bg-white border border-slate-200 text-slate-600 hover:text-slate-900 transition-colors" data-filter="systems">Systems</button>
+                    <button class="project-filter-btn px-3.5 py-2 rounded-lg bg-white border border-slate-200 text-slate-600 hover:text-slate-900 transition-colors" data-filter="web">Web Tools</button>
+                </div>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card group bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs hover:shadow-md hover:border-slate-300 transition-all flex flex-col justify-between cursor-pointer" data-category="security systems" onclick="openProjectModal('proj1')">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="p-2.5 bg-slate-100 rounded-xl text-slate-700 group-hover:bg-indigo-50 group-hover:text-indigo-600 transition-colors">
+                                <i data-lucide="network" class="w-5 h-5"></i>
+                            </span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-400 group-hover:text-indigo-600 transition-colors"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition-colors mb-2">Network Security Analysis</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3 mb-4">
+                            Explored how network traffic works and how unusual activity can be identified. Experimented with basic analysis tools to better understand common security risks and ways to improve network safety.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-600">Wireshark</span>
+                            <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-600">Packet Analysis</span>
+                            <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-600">Python</span>
+                        </div>
+                        <span class="inline-flex items-center text-xs font-semibold text-slate-900 group-hover:text-indigo-600 gap-1">
+                            Read Details <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card group bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs hover:shadow-md hover:border-slate-300 transition-all flex flex-col justify-between cursor-pointer" data-category="security web" onclick="openProjectModal('proj2')">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="p-2.5 bg-slate-100 rounded-xl text-slate-700 group-hover:bg-indigo-50 group-hover:text-indigo-600 transition-colors">
+                                <i data-lucide="shield-alert" class="w-5 h-5"></i>
+                            </span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-400 group-hover:text-indigo-600 transition-colors"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition-colors mb-2">Phishing Awareness Tool</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3 mb-4">
+                            Worked on an idea for identifying suspicious links and helping users recognize potential online scams. Focused on understanding common phishing techniques and making security awareness more accessible.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-600">Cybersecurity</span>
+                            <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-600">URL Detection</span>
+                            <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-600">Web</span>
+                        </div>
+                        <span class="inline-flex items-center text-xs font-semibold text-slate-900 group-hover:text-indigo-600 gap-1">
+                            Read Details <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card group bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs hover:shadow-md hover:border-slate-300 transition-all flex flex-col justify-between cursor-pointer" data-category="systems web" onclick="openProjectModal('proj3')">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="p-2.5 bg-slate-100 rounded-xl text-slate-700 group-hover:bg-indigo-50 group-hover:text-indigo-600 transition-colors">
+                                <i data-lucide="lock" class="w-5 h-5"></i>
+                            </span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-400 group-hover:text-indigo-600 transition-colors"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition-colors mb-2">Secure File Sharing</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3 mb-4">
+                            Explored the development of a simple file-sharing application with an emphasis on user privacy and secure access. Learned about authentication, permissions, and the importance of protecting sensitive information.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-600">Encryption</span>
+                            <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-600">Auth</span>
+                            <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-600">Fullstack</span>
+                        </div>
+                        <span class="inline-flex items-center text-xs font-semibold text-slate-900 group-hover:text-indigo-600 gap-1">
+                            Read Details <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience & Activities Section -->
+    <section id="experience" class="py-24 border-t border-slate-200/60 bg-white">
+        <div class="max-w-5xl mx-auto px-6">
+            <!-- Title Header (No 03 tag) -->
+            <div class="flex items-center space-x-4 mb-16">
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight uppercase">EXPERIENCE & ACTIVITIES</h2>
+                <div class="h-px bg-slate-200 flex-1"></div>
+            </div>
+
+            <!-- Experience Grid List -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Cybersecurity Intern -->
+                <div class="p-6 sm:p-8 rounded-2xl bg-slate-50 border border-slate-200/80 shadow-xs hover:border-slate-300 hover:shadow-sm transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-2.5 py-1 rounded bg-indigo-50 text-indigo-700 font-mono text-xs font-semibold">Internship</span>
+                            <span class="text-xs font-mono text-slate-500 font-medium">Accenture</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Cybersecurity Intern</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Assisted with vulnerability assessments, analyzed security findings, and documented recommendations to improve system security. Gained practical experience with security testing, risk assessment, and identifying potential weaknesses.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Software Engineering -->
+                <div class="p-6 sm:p-8 rounded-2xl bg-slate-50 border border-slate-200/80 shadow-xs hover:border-slate-300 hover:shadow-sm transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-2.5 py-1 rounded bg-indigo-50 text-indigo-700 font-mono text-xs font-semibold">Internship</span>
+                            <span class="text-xs font-mono text-slate-500 font-medium">Cloudflare</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Software Engineering</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Contributed to internal software development projects, wrote and tested code, and collaborated with developers to troubleshoot issues and improve application reliability.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Hackathons & Technical Communities -->
+                <div class="p-6 sm:p-8 rounded-2xl bg-slate-50 border border-slate-200/80 shadow-xs hover:border-slate-300 hover:shadow-sm transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-2.5 py-1 rounded bg-indigo-50 text-indigo-700 font-mono text-xs font-semibold">Community</span>
+                            <span class="text-xs font-mono text-slate-500 font-medium">Collaborative</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Hackathons & Technical Communities</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Participated in collaborative technical challenges focused on building practical solutions under time constraints. Worked with teammates on brainstorming, prototyping, feature development, and project presentations.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Clubs & Extracurriculars -->
+                <div class="p-6 sm:p-8 rounded-2xl bg-slate-50 border border-slate-200/80 shadow-xs hover:border-slate-300 hover:shadow-sm transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-2.5 py-1 rounded bg-indigo-50 text-indigo-700 font-mono text-xs font-semibold">Leadership & Sports</span>
+                            <span class="text-xs font-mono text-slate-500 font-medium">Extracurricular</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Clubs & Extracurriculars</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Engaged in technical workshops, peer-learning sessions, and student-led activities focused on programming and technology. Also enjoy badminton, fitness, and recreational sports, which encourage teamwork, discipline, and consistency.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 border-t border-slate-200/60 bg-slateBg">
+        <div class="max-w-3xl mx-auto px-6 text-center">
+            <!-- Clean Header without section numbers -->
+            <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight uppercase mb-3">CONTACT</h2>
+            <p class="text-slate-600 text-sm sm:text-base max-w-xl mx-auto mb-10 leading-relaxed">
+                For professional inquiries, collaborations, and project opportunities. Feel free to connect or reach out directly.
+            </p>
+
+            <!-- Direct Contact Links Box (Form & Location Tag Removed) -->
+            <div class="bg-white rounded-2xl p-8 sm:p-10 border border-slate-200/80 shadow-xs space-y-4 text-left max-w-xl mx-auto">
+                <h3 class="text-base font-bold text-slate-900 mb-6">Reach Out Directly</h3>
+
+                <!-- Email Link & Copy -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/60 flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-3 overflow-hidden">
+                        <i data-lucide="mail" class="w-4 h-4 text-slate-500 shrink-0"></i>
+                        <span class="text-xs font-mono text-slate-800 truncate">yourname@email.com</span>
+                    </div>
+                    <button onclick="copyToClipboard('yourname@email.com')" class="text-xs font-semibold text-indigo-600 hover:text-indigo-700 p-1 shrink-0 flex items-center gap-1 transition-colors">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                        <span>Copy</span>
+                    </button>
+                </div>
+
+                <!-- LinkedIn Link -->
+                <a href="https://linkedin.com/in/yourname" target="_blank" rel="noopener noreferrer" class="p-4 rounded-xl bg-slate-50 border border-slate-200/60 flex items-center justify-between hover:bg-slate-100/80 transition-colors">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="linkedin" class="w-4 h-4 text-slate-500"></i>
+                        <span class="text-xs font-mono text-slate-800">linkedin.com/in/yourname</span>
+                    </div>
+                    <i data-lucide="external-link" class="w-3.5 h-3.5 text-slate-400"></i>
+                </a>
+
+                <!-- GitHub Link -->
+                <a href="https://github.com/PriLeo101" target="_blank" rel="noopener noreferrer" class="p-4 rounded-xl bg-slate-50 border border-slate-200/60 flex items-center justify-between hover:bg-slate-100/80 transition-colors">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="github" class="w-4 h-4 text-slate-500"></i>
+                        <span class="text-xs font-mono text-slate-800">github.com/PriLeo101</span>
+                    </div>
+                    <i data-lucide="external-link" class="w-3.5 h-3.5 text-slate-400"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-slate-200 bg-white text-center text-xs text-slate-500">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+                &copy; <span id="current-year"></span> Aditya Nair. All rights reserved.
+            </div>
+            <div class="flex items-center space-x-6 text-slate-400 font-mono text-[11px]">
+                <span>MIT</span>
+                <span>&bull;</span>
+                <span>VIT Vellore</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Project Details Modal -->
+    <div id="project-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-2xl max-w-xl w-full p-6 sm:p-8 border border-slate-200 shadow-2xl transform scale-95 transition-transform duration-300 relative" id="modal-content">
+            <button onclick="closeProjectModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-900 transition-colors p-1 rounded-lg">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div class="flex items-center gap-3 mb-3" id="modal-icon-container"></div>
+            <h3 class="text-xl font-bold text-slate-900 mb-2" id="modal-title">Project Title</h3>
+            <div class="flex flex-wrap gap-1.5 mb-6" id="modal-tags"></div>
+
+            <div class="space-y-4 text-slate-600 text-sm leading-relaxed mb-8" id="modal-description"></div>
+
+            <div class="flex justify-end gap-3 pt-4 border-t border-slate-100">
+                <button onclick="closeProjectModal()" class="px-4 py-2 rounded-lg bg-slate-100 text-slate-700 text-xs font-semibold hover:bg-slate-200 transition-colors">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white text-xs px-4 py-3 rounded-xl shadow-lg flex items-center space-x-2">
+        <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+        <span id="toast-msg">Action completed successfully</span>
+    </div>
+
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        lucide.createIcons();
+
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('bg-white/80', 'backdrop-blur-nav', 'border-slate-200/80', 'shadow-xs');
+            } else {
+                navbar.classList.remove('bg-white/80', 'backdrop-blur-nav', 'border-slate-200/80', 'shadow-xs');
+            }
+        });
+
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        function copyToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            showToast('Copied to clipboard!');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            toastMsg.textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        const filterBtns = document.querySelectorAll('.project-filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-slate-900', 'text-white');
+                    b.classList.add('bg-white', 'border', 'border-slate-200', 'text-slate-600');
+                });
+                btn.classList.remove('bg-white', 'border', 'border-slate-200', 'text-slate-600');
+                btn.classList.add('bg-slate-900', 'text-white');
+
+                const filter = btn.getAttribute('data-filter');
+
+                projectCards.forEach(card => {
+                    const category = card.getAttribute('data-category');
+                    if (filter === 'all' || category.includes(filter)) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        const projectData = {
+            proj1: {
+                title: "Network Security Analysis",
+                icon: "network",
+                tags: ["Wireshark", "Packet Analysis", "Python"],
+                description: `
+                    <p>Explored how network traffic works and how unusual activity can be identified. Experimented with basic analysis tools to better understand common security risks and ways to improve network safety.</p>
+                `
+            },
+            proj2: {
+                title: "Phishing Awareness Tool",
+                icon: "shield-alert",
+                tags: ["Cybersecurity", "URL Detection", "Web"],
+                description: `
+                    <p>Worked on an idea for identifying suspicious links and helping users recognize potential online scams. Focused on understanding common phishing techniques and making security awareness more accessible.</p>
+                `
+            },
+            proj3: {
+                title: "Secure File Sharing Application",
+                icon: "lock",
+                tags: ["Encryption", "Auth", "Fullstack"],
+                description: `
+                    <p>Explored the development of a simple file-sharing application with an emphasis on user privacy and secure access. Learned about authentication, permissions, and the importance of protecting sensitive information.</p>
+                `
+            }
+        };
+
+        const modal = document.getElementById('project-modal');
+        const modalContent = document.getElementById('modal-content');
+
+        function openProjectModal(id) {
+            const data = projectData[id];
+            if (!data) return;
+
+            document.getElementById('modal-title').textContent = data.title;
+            document.getElementById('modal-icon-container').innerHTML = `
+                <span class="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
+                    <i data-lucide="${data.icon}" class="w-6 h-6"></i>
+                </span>
+            `;
+            document.getElementById('modal-tags').innerHTML = data.tags.map(t => `<span class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-100 text-slate-700">${t}</span>`).join('');
+            document.getElementById('modal-description').innerHTML = data.description;
+
+            lucide.createIcons();
+
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProjectModal() {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            document.body.style.overflow = 'auto';
+        }
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeProjectModal();
+        });
+
+        // Subtle Canvas Particle Background
+        const canvas = document.getElementById('hero-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, points = [];
+
+        function resizeCanvas() {
+            width = canvas.width = canvas.parentElement.clientWidth;
+            height = canvas.height = canvas.parentElement.clientHeight;
+            points = [];
+            const count = Math.floor((width * height) / 18000);
+            for (let i = 0; i < count; i++) {
+                points.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4,
+                    radius: Math.random() * 1.5 + 1
+                });
+            }
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.2)';
+            ctx.strokeStyle = 'rgba(15, 23, 42, 0.05)';
+
+            for (let i = 0; i < points.length; i++) {
+                let p = points[i];
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0 || p.x > width) p.vx *= -1;
+                if (p.y < 0 || p.y > height) p.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                for (let j = i + 1; j < points.length; j++) {
+                    let p2 = points[j];
+                    let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateCanvas);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        window.onload = function() {
+            resizeCanvas();
+            animateCanvas();
+        };
+    </script>
+</body>
+</html>
